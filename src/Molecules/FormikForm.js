@@ -5,6 +5,8 @@ import { Container,TextField } from '@mui/material';
 import styled from 'styled-components';
 import { validationSchema } from '../common/ValidationSchema';
 import { formFields } from '../common/FormFields';
+import { useDispatch} from 'react-redux';
+import { addUserData } from '../common/StateManagement/UserDetailsSlice';
 
 const StyledContainer = styled(Container)`
     padding: 0px !important;
@@ -54,6 +56,7 @@ const FlipcartButton = styled.button`
  font-size: 15px;
 `
 const FormikInput = ({ label, ...props }) => (
+
   <Field name={props.name}>
     {({ field, meta }) => (
       <div>
@@ -72,6 +75,9 @@ const FormikInput = ({ label, ...props }) => (
 );
 
 const FormikForm = () => {
+  
+  const dispatch = useDispatch();
+  
   const initialValues = formFields.reduce((acc, field) => {
     acc[field.id] = '';
     return acc;
@@ -79,6 +85,7 @@ const FormikForm = () => {
 
   const handleSubmit = (values) => {
     console.log('Form Data:', values);
+    dispatch(addUserData(values));
   };
 
   return (
