@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components';
+import Header from './Component/Header';
+import SignUp from './Component/Signup';
 
+const Container = styled.div`
+    display: block;
+    margin-inline: auto;
+    width: 1208px;
+    height: 650px;
+    background-color: #fff;
+    margin-top: 48px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 5, 0.1);
+`
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Header/>
+      <SignUp/>
+    </Container>
   );
 }
 
