@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import TypeText from '../Atoms/TypeText';
 import { Typography, Link } from '@mui/material';
 import FormikForm from '../Molecules/FormikForm';
+import { NavLink } from '../common/NavLink';
 
 const Wrapper = styled.div`
  height: 530px;
@@ -33,7 +34,7 @@ const SignUp = () => {
         <TypeText text="START FOR FREE" fontWeight="bold" fontSize="15px" color="#8d8888"/>
         <TypeText text="Create new account" fontWeight="bold" fontSize="30px"/>
         <Typography sx={{color:"#8d8888", fontWeight:"bold",fontSize:"15px"}} variant="body2" mb={3}>
-          Already A Member? <Link href="#">Log in</Link>
+          Already A Member? <NavLink to="/login">Log in</NavLink>
         </Typography>
         </TextWrapper>
         <FormikForm/>

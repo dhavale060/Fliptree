@@ -5,8 +5,10 @@ import { Container,TextField } from '@mui/material';
 import styled from 'styled-components';
 import { validationSchema } from '../common/ValidationSchema';
 import { formFields } from '../common/FormFields';
-import { useDispatch} from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
 import { addUserData } from '../common/StateManagement/UserDetailsSlice';
+import { useNavigate } from 'react-router-dom';
+import FlipcartButton from '../Atoms/FlipcartButton';
 
 const StyledContainer = styled(Container)`
     padding: 0px !important;
@@ -45,16 +47,6 @@ gap:25px;
 grid-template-rows: auto;
 margin-top:15px;
 `
-const FlipcartButton = styled.button`
- width: auto;
- border: 1px solid grey;
- border-radius: 23px;
- height: 53px;
- background-color: ${(props) => (props.primary ? '#3087dd' : '#ada7a7')};
- color: white;
- font-weight: bold;
- font-size: 15px;
-`
 const FormikInput = ({ label, ...props }) => (
 
   <Field name={props.name}>
@@ -77,6 +69,8 @@ const FormikInput = ({ label, ...props }) => (
 const FormikForm = () => {
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {userData} = useSelector((state) => state.UserDetails);
   
   const initialValues = formFields.reduce((acc, field) => {
     acc[field.id] = '';
@@ -84,8 +78,17 @@ const FormikForm = () => {
   }, {});
 
   const handleSubmit = (values) => {
-    console.log('Form Data:', values);
+    const userFound = userData.find(
+        (user) => user.email === values.email && user.password === values.password
+      );
+
+     if(userFound){
+          alert("User alredy exist");
+          //can handle user exist condition
+     }
+
     dispatch(addUserData(values));
+    navigate("/login");
   };
 
   return (
@@ -108,7 +111,7 @@ const FormikForm = () => {
           </GridContainer>
           <ButtonContainer>
             <FlipcartButton>Change Method</FlipcartButton>
-            <FlipcartButton primary>Submit</FlipcartButton>
+            <FlipcartButton color="#3087dd">Submit</FlipcartButton>
           </ButtonContainer>
         </Form>
       </Formik>
