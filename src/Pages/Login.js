@@ -1,4 +1,3 @@
-// pages/Login.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +6,7 @@ import FlipcartButton from '../Atoms/FlipcartButton';
 import styled from 'styled-components';
 import TypeText from '../Atoms/TypeText';
 import {login} from '../common/StateManagement/UserDetailsSlice';
+import { registerFields } from '../common/FormFields';
 
 const LoginContainer = styled(Box)`
  display: flex;
@@ -28,24 +28,28 @@ const FormContainer = styled.div`
 `
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const {userData} = useSelector((state) => state.UserDetails);
+//hooks declaration
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+//redux state 
+  const {userData} = useSelector((state) => state.UserDetails);
+  const [formValues,setFormValues] = useState({}); 
+  console.log("formValues",formValues);
+//selected some fields from formFields to login
+  const loginFields = registerFields.toSpliced(0 , 2);
+  
+//declared function for handleChange
+  const handleChange = (e) => {
+    const {name , value} = e.target;
+    setFormValues({...formValues , [name]:value});
+  }
+
+//declared function for handle login 
   const handleLogin = () => {
-    // Debugging Redux State and Inputs
-    console.log('Redux State (userDetails):', userData);
-    console.log('Email:', email);
-    console.log('Password:', password);
-
     const userFound = userData.find(
-      (user) => user.email === email && user.password === password
+      (user) => user.email === formValues.Email && user.password === formValues.Password
     );
-
-    // Debugging Find Logic
-    console.log('User Found:', userFound);
 
     if (userFound) {
       alert(`Login successful! Welcome ${userFound.email}`);
@@ -57,31 +61,28 @@ const Login = () => {
     }
   };
 
+// dynamicaly rendered textfield with map stored in variable to add into the page
+  const InputField = loginFields.map((field) => (
+    <>
+       <TextField
+        required
+        key={field.id}
+        label={field.label}
+        name={field.label}
+        type={field.type}
+        value={formValues[field.name]}
+        onChange={handleChange}
+        variant="outlined"
+        fullWidth
+      />
+    </>
+    ))
 
   return (
     <LoginContainer component="form" >
      <FormContainer component="form-container">
       <TypeText text="You can login here..." fontWeight="bold" fontSize="30px"/>
-      <TextField
-        required
-        label="Email"
-        name="email"
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        variant="outlined"
-        fullWidth
-      />
-      <TextField
-        required
-        label="Password"
-        name="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        variant="outlined"
-        fullWidth
-      />
+      <>{InputField}</>
       <FlipcartButton onClick={handleLogin}>Login</FlipcartButton>
      </FormContainer>
     </LoginContainer>

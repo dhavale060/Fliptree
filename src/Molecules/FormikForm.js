@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Container,TextField } from '@mui/material';
 import styled from 'styled-components';
 import { validationSchema } from '../common/ValidationSchema';
-import { formFields } from '../common/FormFields';
+import { registerFields } from '../common/FormFields';
 import { useDispatch,useSelector} from 'react-redux';
 import { addUserData } from '../common/StateManagement/UserDetailsSlice';
 import { useNavigate } from 'react-router-dom';
@@ -41,11 +41,11 @@ const StyledError = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-display:grid;
-grid-template-columns: repeat(2, 1fr);
-gap:25px;
-grid-template-rows: auto;
-margin-top:15px;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:25px;
+  grid-template-rows: auto;
+  margin-top:15px;
 `
 const FormikInput = ({ label, ...props }) => (
 
@@ -71,8 +71,8 @@ const FormikForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {userData} = useSelector((state) => state.UserDetails);
-  
-  const initialValues = formFields.reduce((acc, field) => {
+
+  const initialValues = registerFields.reduce((acc, field) => {
     acc[field.id] = '';
     return acc;
   }, {});
@@ -100,7 +100,7 @@ const FormikForm = () => {
       >
         <Form>
           <GridContainer>
-            {formFields.map((field) => (
+            {registerFields.map((field) => (
                 <FormikInput
                   key={field.id}
                   name={field.id}

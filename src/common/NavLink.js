@@ -3,4 +3,5 @@ import styled from "styled-components";
 
  export const NavLink = styled(Link)`
   text-decoration:none;
+  display: inline-flex;
 `

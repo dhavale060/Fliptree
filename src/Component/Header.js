@@ -6,10 +6,12 @@ import { NavLink } from '../common/NavLink';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../common/StateManagement/UserDetailsSlice';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FlipcartButton from '../Atoms/FlipcartButton';
 
 const  HeaderContainer = styled.div`
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     width: 1204px;
     height: 76px;
@@ -21,6 +23,13 @@ const LinkContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     justify-items: center;
+`
+const LinkCartContainer = styled.div`
+    width: 130px;
+    height: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 `
 
 function Header() {
@@ -36,9 +45,11 @@ function Header() {
        <Logo/>
        <NavLink to="/"><TypeText text="Home" fontWeight="bold" fontSize="15px" color="#8d8888"/></NavLink>
        <NavLink to="/products"><TypeText text="Product" fontWeight="bold" fontSize="15px" color="#8d8888"/></NavLink>
-       <NavLink to="/cart"><TypeText text="Cart" fontWeight="bold" fontSize="15px" color="#8d8888"/></NavLink>
-       <button onClick={handleLogout}>Logout</button>
       </LinkContainer>
+      <LinkCartContainer>
+      <NavLink to="/cart"><ShoppingCartIcon sx={{color:"#8d8888"}}/></NavLink>
+       <FlipcartButton onClick={handleLogout} borderradius="7px" width="70px" height="30px">Logout</FlipcartButton>
+      </LinkCartContainer>
     </HeaderContainer>
   )
 }

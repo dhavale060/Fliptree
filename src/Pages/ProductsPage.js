@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import GridContainer from '../Atoms/GridContainer';
 import CardComponent from '../Component/CardComponent';
 import styled from 'styled-components';
 import { fetchProducts } from '../common/StateManagement/AsyncThunks';
 import { useDispatch,useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import TypeText from '../Atoms/TypeText';
 
 const ProductContainer = styled.div`
  display: flex;
@@ -22,14 +23,14 @@ const ProductsPage = () => {
     dispatch(fetchProducts())
   },[dispatch]);
 
-  //Function for to view the product
+  //Function to view the product
   const viewProductsDetails = (id) => {
     navigate(`/products/${id}`); // Navigate to product details page
   };
 
   return (
     <ProductContainer>
-      <h1>Products</h1>
+      <TypeText text="Products" fontWeight="bold" fontSize="22px"/>
       {
         status === 'loading' && <p>Loading....</p>
       }
@@ -45,7 +46,6 @@ const ProductsPage = () => {
             key={product.id}
             image={product.image}
             title={product.title}
-            description={product.description}
             price={product.price}
             onClick={viewProductsDetails}
           />

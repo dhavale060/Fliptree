@@ -14,11 +14,11 @@ const Container = styled.div`
     display: flex;
     flex-direction:column;
     align-items: center;
+    min-height:650px;
     justify-items: center;
     margin-inline: auto;
-    width: 1208px;
     background-color: #fff;
-    margin-top: 48px;
+    margin-top: 2px;
     border-radius: 10px;
     padding-bottom:20px;
     box-shadow: 0 5px 10px rgba(0, 0, 5, 0.1);
